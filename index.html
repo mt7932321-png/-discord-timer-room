@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>100 Hour Timer</title>
+
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #111214;
+      color: white;
+      font-family: Arial, sans-serif;
+    }
+
+    #timer {
+      font-size: 70px;
+      font-weight: bold;
+      letter-spacing: 3px;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="timer">100:00:00</div>
+
+  <script>
+    const endTime = Date.now() + (100 * 60 * 60 * 1000);
+
+    function updateTimer() {
+      const remaining = Math.max(0, endTime - Date.now());
+
+      const hours = Math.floor(remaining / (1000 * 60 * 60));
+      const minutes = Math.floor(
+        (remaining % (1000 * 60 * 60)) / (1000 * 60)
+      );
+      const seconds = Math.floor(
+        (remaining % (1000 * 60)) / 1000
+      );
+
+      document.getElementById("timer").textContent =
+        String(hours).padStart(2, "0") + ":" +
+        String(minutes).padStart(2, "0") + ":" +
+        String(seconds).padStart(2, "0");
+
+      if (remaining > 0) {
+        setTimeout(updateTimer, 1000);
+      }
+    }
+
+    updateTimer();
+  </script>
+</body>
+</html>
